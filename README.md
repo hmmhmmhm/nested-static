@@ -16,9 +16,11 @@ npm install nested-static --save
 ```js
 const nestedStatic = require("nested-static")
 
-nestedStatic("./static", (subPath, staticPath)=>{
-	// logger.log (`Folder Registered ${staticPath} to ${subPath}`)
-	app.use(subPath, express.static(staticPath))
+nestedStatic(`${__dirname}/../static`, (folders)=>{
+    for(let {staticPath, subPath} of folders){
+        console.log (`Folder Registered ${staticPath} to ${subPath}`)
+        app.use(subPath, express.static(staticPath))
+    }
 })
 ```
 

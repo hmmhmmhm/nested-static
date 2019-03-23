@@ -1,12 +1,18 @@
 declare module 'nested-static' {
-    type CallbackType = (subPath: string, staticPath: string) => void
+    interface IFolderType {
+        subPath: string,
+        staticPath: string
+    }
+    type CallbackType = (folders: IFolderType[]) => void
     type NestedStaticType = (staticPath: string, callback: CallbackType) => void
 
     /**
      * @example
-     * nestedStatic("./static", (subPath, staticPath)=>{
-     *     // logger.log (`Folder Registered ${staticPath} to ${subPath}`)
-     *     app.use(subPath, express.static(staticPath))
+     * nestedStatic(`${__dirname}/../static`, (folders)=>{
+     *     for(let {staticPath, subPath} of folders){
+     *         console.log (`Folder Registered ${staticPath} to ${subPath}`)
+     *         app.use(subPath, express.static(staticPath))
+     *     }
      * })
      */
     const nestedStatic: NestedStaticType
